@@ -1,7 +1,7 @@
-# DarkEnumeration
+DarkEnumeration
 Automated enumeration
 
-# This set of scripts were written in the hopes to alleviate manual enumeration processes the logic of the script is as follows:
+This set of scripts were written in the hopes to alleviate manual enumeration processes the logic of the script is as follows:
   1. Do not actually exploit or automatically obtain footholds on a system
   2. Test all 65,535 ports utilizing Unicornscan
   3. Once Unicornscan completes, take those ports and run a far more intrusive nmap scan on each service/port (standard implementations, only).
@@ -10,8 +10,7 @@ Automated enumeration
   6. Each new script/tool that is launched, does so in a new terminal to keep things clean - not all windows will remain open (i.e. those with output flags/redirection).
   7. Thoroughly investigate all output and any errors, bugs or otherwise should be manually investigated by you.
   
-# Please do not use this script in any publications (blogs, tutorials, etc...) without giving credit to myself; this script will be useful to many and I'm very proud of my work - thanks.
-
-# Please send any suggested fixes or tweaks that you've made to it, to me, so that it can be reflected in this repository so others can benefit.
+#Please do not use this script in any publications (blogs, tutorials, etc...) without giving credit to myself; this script will be useful to many and I'm very proud of my work - thanks. 
+(In addition, if you modify/update or otherwise fix these scripts please send any suggested fixes or tweaks that you've made to it, to me, so that it can be reflected in this repository so others can benefit.)
 
 # Try-Harder! and use Google to ask for help - cause Offensive Security won't help you and I may not have the time to help, either.
