@@ -14,3 +14,10 @@ This set of scripts were written in the hopes to alleviate manual enumeration pr
 (In addition, if you modify/update or otherwise fix these scripts please send any suggested fixes or tweaks that you've made to it, to me, so that it can be reflected in this repository so others can benefit.)
 
 # Try-Harder! and use Google to ask for help - cause Offensive Security won't help you and I may not have the time to help, either.
+
+
+#Installation for certain scripts to work:
+1. All scripts MUST be in /root/Scripts/
+2. Go to http://itsecurity.net/ and download http://itsecurity.net/debian_ssh_scan_v4.tar.bz2
+3. Unzip debian_ssh_scan_v4.tar.bz2 into /root/Scripts/debian_ssh_scan_v4
+4. have fun
