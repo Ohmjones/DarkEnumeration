@@ -19,7 +19,7 @@ This set of scripts were written in the hopes to alleviate manual enumeration pr
 #Installation for certain scripts to work:
 1. All scripts MUST be in /root/Scripts/
 2. Go to http://itsecurity.net/ and download http://itsecurity.net/debian_ssh_scan_v4.tar.bz2
-3. Unzip debian_ssh_scan_v4.tar.bz2 into /root/Scripts/debian_ssh_scan_v4
+3. Unzip debian_ssh_scan_v4.tar.bz2 into /root/Scripts/debian_ssh_scan_v4 (/root/Scripts/debian_ssh_scan_v4/debian_ssh_scan_v4.py target should execute the script)
 4. have fun
 
 
