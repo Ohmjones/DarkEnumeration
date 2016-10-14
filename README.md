@@ -21,3 +21,9 @@ This set of scripts were written in the hopes to alleviate manual enumeration pr
 2. Go to http://itsecurity.net/ and download http://itsecurity.net/debian_ssh_scan_v4.tar.bz2
 3. Unzip debian_ssh_scan_v4.tar.bz2 into /root/Scripts/debian_ssh_scan_v4
 4. have fun
+
+
+#Understanding usage
+darkenum.py runs off of your sweep attempts, so long as you output your cleaned 'livehosts' file to /tmp/
+  ./darkenum.py <-- no system arguments needed
+#WARNING: This script is pretty hefty, I do NOT recommend running it on anymore than 4 systems at any one time.
