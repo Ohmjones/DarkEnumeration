@@ -90,14 +90,14 @@ def unicorn(ip_address):
 	tcpports = []
 	tcpservice = []
 	for lines in calltcpscan.stdout:
-		if ("[" in lines):
-			linez = re.split("\s", lines)
+		if re.search('\[([\s0-9{1,5}]+)\]',lines):
+			linez = re.split('\W+', lines)
 			services = [x for x in linez if x][2]
 			ports = [x for x in linez if x][3]
-			service = services.strip("[")
-			port = ports.strip("]")
-			tcpservice.append(service)			
-			tcpports.append(port)
+			if service not in tcpservice:
+				tcpservice.append(service)
+			if port not in tcpports:
+				tcpports.append(port)
 
 	if tcpports:
 		#print "TCP: " +  str(tcpservice) + " on ports " + str(tcpports)
@@ -112,17 +112,13 @@ def unicorn(ip_address):
 	udpports = []
 	udpservice = []
 	for lines in calludpscan.stdout:
-		if ("[" in lines):
-			linez = re.split("\s", lines)
-			services = [x for x in linez if x][2]			
-			service = services.strip("[")
-			udpservice.append(service)
-		elif ("]" in lines):
+		if re.search('\[([\s0-9{1,5}]+)\]',lines):
+			linez = re.split('\W+', lines)
+			services = [x for x in linez if x][2]
 			ports = [x for x in linez if x][3]
-			port = ports.strip("]")
-			if (port in udpports):
-				pass
-			else:
+			if service not in udpservice:
+				udpservice.append(service)
+			if port not in udpports:
 				udpports.append(port)
 
 	if udpports:
