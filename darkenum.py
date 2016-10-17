@@ -75,8 +75,10 @@ def unicorn(ip_address):
 	global udpport_dict
 	global udpserv_dict
 	tcpport_dict = {}
+	tcpserv_dict = {}
 	udpport_dict = {}
-
+	udpserv_dict = {}
+	
 	#tcp scan
 	tcptest = "unicornscan -mT -p1-65535 -r500 -I %s" % ip_address
 	calltcpscan = subprocess.Popen(tcptest, stdout=subprocess.PIPE, shell=True)
@@ -98,13 +100,6 @@ def unicorn(ip_address):
 				tcpservice.append(service)
 			if port not in tcpports:
 				tcpports.append(port)
-
-	if tcpports:
-		#print "TCP: " +  str(tcpservice) + " on ports " + str(tcpports)
-		pass
-	else:
-		print "[!][!] No TCP services open on " + "%s" % ip_address
-		#pass
 	tcpport_dict = tcpports
 	tcpserv_dict = tcpservice
 
@@ -120,16 +115,11 @@ def unicorn(ip_address):
 				udpservice.append(service)
 			if port not in udpports:
 				udpports.append(port)
-
-	if udpports:
-		#print "UDP: " + str(udpservice) + " on ports " + str(udpports)
-		pass
-	else:
-		print "[!][!] No UDP services open on " + "%s" % ip_address 
-		#pass
 	
 	udpport_dict = udpports
 	udpserv_dict = udpservice
+	
+# print out unicornscan findings to a document
 
 # Kick off intrusive Nmap scanning
 	jobs = []
