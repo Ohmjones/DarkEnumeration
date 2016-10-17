@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import sys, os, subprocess, re, time
 if len(sys.argv) != 2:
-    print "Usage: ./https.py <target>"
+    print "Usage: ./https.py <targetip>"
     sys.exit(0)
 
 ip_address = str(sys.argv[1])
