@@ -120,6 +120,14 @@ def unicorn(ip_address):
 	udpserv_dict = udpservice
 	
 # print out unicornscan findings to a document
+	usout = open('/tmp/' + ip_address + '/unicorn','w')
+	try:
+		usout.write(ip_address + " " + tcpserv_dict + ":" + tcpport_dict + '\n')
+		usout.write(ip_address + " " + udpserv_dict + ":" + udpport_dict + '\n')
+		usout.write("plug n' play manual edition:\n")
+		usout.write(ip_address + "=:" + tcpport_dict + ",U:" udpport_dict + '\n\n')
+	except:
+		break
 
 # Kick off intrusive Nmap scanning
 	jobs = []
