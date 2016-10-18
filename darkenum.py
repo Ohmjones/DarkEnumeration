@@ -96,9 +96,9 @@ def unicorn(ip_address):
 			linez = re.split('\W+', lines)
 			services = [x for x in linez if x][2]
 			ports = [x for x in linez if x][3]
-			if service not in tcpservice:
+			if services not in tcpservice:
 				tcpservice.append(service)
-			if port not in tcpports:
+			if ports not in tcpports:
 				tcpports.append(port)
 	tcpport_dict = tcpports
 	tcpserv_dict = tcpservice
@@ -111,9 +111,9 @@ def unicorn(ip_address):
 			linez = re.split('\W+', lines)
 			services = [x for x in linez if x][2]
 			ports = [x for x in linez if x][3]
-			if service not in udpservice:
+			if services not in udpservice:
 				udpservice.append(service)
-			if port not in udpports:
+			if ports not in udpports:
 				udpports.append(port)
 	
 	udpport_dict = udpports
