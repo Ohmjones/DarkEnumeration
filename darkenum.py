@@ -103,8 +103,8 @@ def unicorn(ip_address):
 				if data not in tcpports:
 					tcpports.append(ports)
 				usout.write(str(tcpservice) + ":" + str(tcpports) + '\n')	
-	tcpport_dict = tcpports
 	tcpserv_dict = tcpservice
+	tcpport_dict = tcpports
 
 # populate udp service names & ports
 	udpports = []
@@ -120,9 +120,8 @@ def unicorn(ip_address):
 				if ports not in udpports:
 					udpports.append(ports)
 				usout.write(str(udpservice) + ":" + str(udpports) + '\n')
-	
-	udpport_dict = udpports
 	udpserv_dict = udpservice
+	udpport_dict = udpports
 	
 # print out unicornscan findings to a document
 	usout = open('/tmp/' + ip_address + '/unicorn','w')
