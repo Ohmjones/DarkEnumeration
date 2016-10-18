@@ -78,6 +78,7 @@ def unicorn(ip_address):
 	tcpserv_dict = {}
 	udpport_dict = {}
 	udpserv_dict = {}
+	usout = open('/tmp/' + ip_address + '/unicorn','w')
 	
 	#tcp scan
 	tcptest = "unicornscan -mT -p1-65535 -r500 -I %s" % ip_address
@@ -96,10 +97,12 @@ def unicorn(ip_address):
 			linez = re.split('\W+', lines)
 			services = [x for x in linez if x][2]
 			ports = [x for x in linez if x][3]
-			if services not in tcpservice:
-				tcpservice.append(service)
-			if ports not in tcpports:
-				tcpports.append(port)
+			for data in zip(services, ports):
+				if data not in tcpservice:
+					tcpservice.append(services)
+				if data not in tcpports:
+					tcpports.append(ports)
+				usout.write(tcpservice + ":" + tcpports + '\n')	
 	tcpport_dict = tcpports
 	tcpserv_dict = tcpservice
 
@@ -111,10 +114,12 @@ def unicorn(ip_address):
 			linez = re.split('\W+', lines)
 			services = [x for x in linez if x][2]
 			ports = [x for x in linez if x][3]
-			if services not in udpservice:
-				udpservice.append(service)
-			if ports not in udpports:
-				udpports.append(port)
+			for data in zip(services, ports):
+				if services not in udpservice:
+					udpservice.append(services)
+				if ports not in udpports:
+					udpports.append(ports)
+				usout.write(udpservice + ":" + udpports + '\n')
 	
 	udpport_dict = udpports
 	udpserv_dict = udpservice
