@@ -5,14 +5,6 @@
 import subprocess, multiprocessing, os, time, re
 from multiprocessing import Process, Queue
 
-# Kick off multiprocessing
-def xProc(targetin, target, port):
-	jobs = []
-	proc = multiprocessing.Process(target=targetin, args=(target,port))
-	jobs.append(proc)
-	proc.start()
-	return
-
 # Kick off further enumeration.
 def http(ip_address, port):
 	print "[*] Launching HTTP scripts on " + ip_address
@@ -126,11 +118,6 @@ def unicorn(ip_address):
 	usout.write(str(udpserv_dict) + ":" + str(udpport_dict) + '\n')
 	usout.close()
 	intrusive(ip_address)
-# Kick off intrusive Nmap scanning
-#	jobs = []
-#	mp = multiprocessing.Process(target=intrusive, args=(ip_address,))
-#	jobs.append(mp)
-#	mp.start()
 
 # Kick off standalone python scripts to further enumerate each service
 	for service, port in zip(tcpserv_dict,tcpport_dict): 
