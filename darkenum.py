@@ -125,12 +125,12 @@ def unicorn(ip_address):
 	udpport_dict = udpports
 	usout.write(str(udpserv_dict) + ":" + str(udpport_dict) + '\n')
 	usout.close()
-	
+	intrusive(ip_address)
 # Kick off intrusive Nmap scanning
-	jobs = []
-	mp = multiprocessing.Process(target=intrusive, args=(ip_address,))
-	jobs.append(mp)
-	mp.start()
+#	jobs = []
+#	mp = multiprocessing.Process(target=intrusive, args=(ip_address,))
+#	jobs.append(mp)
+#	mp.start()
 
 # Kick off standalone python scripts to further enumerate each service
 	for service, port in zip(tcpserv_dict,tcpport_dict): 
