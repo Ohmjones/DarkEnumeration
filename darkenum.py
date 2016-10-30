@@ -9,6 +9,14 @@ if len(sys.argv) != 2:
 
 ip_address = str(sys.argv[1])
 
+# Kick off multiprocessing
+def xProc(targetin, target, port):
+	jobs = []
+	proc = multiprocessing.Process(target=targetin, args=(target,port))
+	jobs.append(proc)
+	proc.start()
+	return
+
 # Kick off further enumeration.
 def http(ip_address, port):
 	print "[*] Launching HTTP scripts on " + ip_address
