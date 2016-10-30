@@ -25,7 +25,7 @@ def http(ip_address, port):
 	return
 
 def https(ip_address, port):
-	print "[*] Launching HTTPS scripts on " + ip_address
+	print "[*] Launching SSL scripts on " + ip_address
 	httpsscript = "~/Scripts/https.py %s" % (ip_address)
 	os.system("gnome-terminal -e 'bash -c \"" + httpsscript + "\";bash'")	
      	return
@@ -135,32 +135,30 @@ def unicorn(ip_address):
 	for service, port in zip(tcpserv_dict,tcpport_dict): 
 		if (service == "http") and (port == "80"):
 			print "[!] Detected HTTP on " + ip_address + ":" + port + " (TCP)"
-			xProc(http, ip_address, None)
-	
+			xProc(http, ip_address, None)	
+		elif (service == "https") and (port == "443") and (port == "80"):
+			#Noticing severe degradation from 80/443 scripts running simultaneously (connection issues).
+			print "[!] Detected SSL and HTTP on " + ip_address + ":" + port + " (TCP)-- [!] Waiting 7 minutes for HTTP interrogations to end, before launching scripts"
+			time.sleep(420)
+			xProc(https, ip_address, None)
 		elif (service == "https") and (port == "443"):
 			print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
 			xProc(https, ip_address, None)
-
 		elif (service == "ssh") and (port == "22"):
 			print "[!] Detected SSH on " + ip_address + ":" + port + " (TCP)"
 			xProc(ssh, ip_address, None)
-
 		elif (service == "smtp") and (port == "25"):
 			print "[!] Detected SMTP on " + ip_address + ":" + port + " (TCP)"
 			xProc(smtp, ip_address, None)
-
 		elif (service == "microsoft-ds") and (port == "445") and (port == "139"):
 			print "[!] Detected Samba on " + ip_address + ":" + port + " (TCP)"
 			xProc(samba, ip_address, None)
-
 		elif (service == "ms-sql") and (port == "1433"):
 			print "[!] Detected MS-SQL on " + ip_address + ":" + port + " (TCP)"
-			xProc(mssql, ip_address, None)
-	
+			xProc(mssql, ip_address, None)	
 		elif (service == "mysql") and (port == "3306"):
 			print "[!] Detected MYSQL on " + ip_address + ":" + port + " (TCP)"
-			xProc(mysql, ip_address, None)			
-
+			xProc(mysql, ip_address, None)
 	for service, port in zip(udpserv_dict,udpport_dict):
 		if (service == "snmp") and (port == "161"):
 			print "[!] Detected snmp on " + ip_address + ":" + port + " (UDP)"
