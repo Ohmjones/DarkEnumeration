@@ -85,11 +85,11 @@ def unicorn(ip_address):
 	usout = open('/tmp/' + ip_address + '/unicorn','w')
 
 	#tcp scan  -p1-65535 
-	tcptest = "unicornscan -mT -r500 -I %s" % ip_address
+	tcptest = "unicornscan -mT -r500 -p1-65535 -I %s" % ip_address
 	calltcpscan = subprocess.Popen(tcptest, stdout=subprocess.PIPE, shell=True)
 	calltcpscan.wait()
 	#udp scan  -p1-65535 
-	udptest = "unicornscan -mU -r500 -I %s" % ip_address
+	udptest = "unicornscan -mU -r500 -p1-65535 -I %s" % ip_address
 	calludpscan = subprocess.Popen(udptest, stdout=subprocess.PIPE, shell=True)
 	calludpscan.wait()
 
