@@ -1,9 +1,13 @@
 #!/usr/bin/python
-# Script to enumerate a given list of livehosts
-
 # Module Importations
-import subprocess, multiprocessing, os, time, re
+import subprocess, multiprocessing, os, time, re, sys
 from multiprocessing import Process, Queue
+
+if len(sys.argv) != 2:
+    print "Usage: ./http.py <targetip>"
+    sys.exit(0)
+
+ip_address = str(sys.argv[1])
 
 # Kick off further enumeration.
 def http(ip_address, port):
@@ -72,11 +76,11 @@ def unicorn(ip_address):
 	udpserv_dict = {}
 	usout = open('/tmp/' + ip_address + '/unicorn','w')
 
-	#tcp scan  -p1-65535
+	#tcp scan  -p1-65535 
 	tcptest = "unicornscan -mT -r500 -I %s" % ip_address
 	calltcpscan = subprocess.Popen(tcptest, stdout=subprocess.PIPE, shell=True)
 	calltcpscan.wait()
-	#udp scan  -p1-65535
+	#udp scan  -p1-65535 
 	udptest = "unicornscan -mU -r500 -I %s" % ip_address
 	calludpscan = subprocess.Popen(udptest, stdout=subprocess.PIPE, shell=True)
 	calludpscan.wait()
@@ -123,43 +127,35 @@ def unicorn(ip_address):
 	for service, port in zip(tcpserv_dict,tcpport_dict): 
 		if (service == "http") and (port == "80"):
 			print "[!] Detected HTTP on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(10)
 			xProc(http, ip_address, None)
 	
 		elif (service == "https") and (port == "443"):
 			print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(15)
 			xProc(https, ip_address, None)
 
 		elif (service == "ssh") and (port == "22"):
 			print "[!] Detected SSH on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(20)
 			xProc(ssh, ip_address, None)
 
 		elif (service == "smtp") and (port == "25"):
 			print "[!] Detected SMTP on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(25)
 			xProc(smtp, ip_address, None)
 
 		elif (service == "microsoft-ds") and (port == "445") and (port == "139"):
 			print "[!] Detected Samba on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(30)
 			xProc(samba, ip_address, None)
 
 		elif (service == "ms-sql") and (port == "1433"):
 			print "[!] Detected MS-SQL on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(35)
 			xProc(mssql, ip_address, None)
 	
 		elif (service == "mysql") and (port == "3306"):
 			print "[!] Detected MYSQL on " + ip_address + ":" + port + " (TCP)"
-			time.sleep(40)
 			xProc(mysql, ip_address, None)			
 
 	for service, port in zip(udpserv_dict,udpport_dict):
 		if (service == "snmp") and (port == "161"):
 			print "[!] Detected snmp on " + ip_address + ":" + port + " (UDP)"
-			time.sleep(10)
 			xProc(snmp, ip_address, None)
 		elif (service == "netbios") and (port == "137") or (port == "138"):
 			print "[!] Netbios detected on UDP. If nmap states the tcp port is vulnerable, run '-pT:445,U:137' to eliminate false positive"
@@ -173,12 +169,9 @@ print "####                      by: Ohm                       ####"
 print "############################################################"
  
 if __name__=='__main__':
-	targetfile = open('/tmp/livehosts', 'r')		
-	for target in targetfile:
-		path = os.path.join("/tmp", target.strip())
-		try:		
-			os.mkdir(path)
-		except:
-			pass
-		unicorn(target)	
-	targetfile.close()
+	path = os.path.join("/tmp", ip_address.strip())
+	try:		
+		os.mkdir(path)
+	except:
+		pass
+	unicorn(ip_address)
