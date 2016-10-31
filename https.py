@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import sys, os, subprocess, re, time
 if len(sys.argv) != 2:
-    print "Usage: ./https.py <targetip>"
+    print "Usage: ./http.py <targetip>"
     sys.exit(0)
 
 ip_address = str(sys.argv[1])
@@ -26,11 +26,11 @@ def gobuster(url):
 			callcgiscan.wait()
 			for line in callcgiscan.stdout:
 				print line.strip()
-			time.sleep(120)	
 			wfuzz(url)
 	
 def wfuzz(url):
 	if ("big" in wfuzzlist[0]):
+		time.sleep(180)
 		print "[!] Starting wfuzz big scan for " + url
 		wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[0]) + " " + url + "/FUZZ"
 		callbigscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
@@ -45,13 +45,21 @@ def wfuzz(url):
 			callcgiscan.wait()
 			for line in callcgiscan.stdout:
 				print line.strip()
-			time.sleep(120)
-			nikto(url)
+			nse(url)
+
+def nse(url):
+	fileuploader = "nmap -p443 --script http-fileupload-exploiter.nse " + ip_address
+	callfuscan = subprocess.Popen(fileuploader, stdout=subprocess.PIPE, shell=True)
+	callfuscan.wait()	
+	for line in callfuscan.stdout:
+		print line.strip()
+	time.sleep(60)
+	nikto(url)
 		
 def nikto(url):
 	cmd = "nikto -h " + url
 	os.system("gnome-terminal -e 'bash -c \"" + cmd + "\";bash'")
-	
+
 def main():
 	gobuster(url)
 
