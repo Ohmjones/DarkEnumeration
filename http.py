@@ -19,6 +19,7 @@ def gobuster(url):
 		for line in callbigscan.stdout:
 			print line.strip()
 		time.sleep(120)
+		print '\n'
 		if ("cgis" in wordlists[1]):
 			print "[!] Starting gobuster cgi scan for " + url
 			gobuster = "gobuster -u " + url + " -w " +  str(wordlists[1]) + " -s '200,204,301,302,307,400,403'"
@@ -26,6 +27,7 @@ def gobuster(url):
 			callcgiscan.wait()
 			for line in callcgiscan.stdout:
 				print line.strip()
+			print '\n'
 			wfuzz(url)
 	
 def wfuzz(url):
@@ -37,6 +39,7 @@ def wfuzz(url):
 		callbigscan.wait()
 		for line in callbigscan.stdout:
 			print line.strip()
+		print '\n'
 		time.sleep(120)
 		if ("cgis" in wfuzzlist[1]):
 			print "[!] Starting wfuzz cgi scan for " + url
@@ -45,6 +48,7 @@ def wfuzz(url):
 			callcgiscan.wait()
 			for line in callcgiscan.stdout:
 				print line.strip()
+			print '\n'
 			nse(url)
 
 def nse(url):
