@@ -13,7 +13,7 @@ def nmap(ip_address):
 	print "[*] Running non-default NSE MYSQL scripts against " + ip_address	
 	for script in NSEscripts:
 		if ("mysql-dump-hashes" in script):
-			sqlnse = "nmap -sS -p3306 --script mysql-dump-hashes.nse --script-args='username=root,password=secret' %s -oA /tmp/%s/mysql-dump-hashes" % (ip_address, ip_address)
+			sqlnse = "nmap -sS -p3306 --script mysql-dump-hashes.nse --script-args='username=root,password=' %s -oA /tmp/%s/mysql-dump-hashes" % (ip_address, ip_address)
 			subprocess.call(sqlnse, shell=True)
 		elif ("mysql-empty-password" in script):
 			sqlnse = "nmap -sS -p3306 --script mysql-empty-password.nse %s -oA /tmp/%s/mysql-empty-password" % (ip_address, ip_address)
