@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# Module Importations
 import subprocess, multiprocessing, os, time, re, sys
 from multiprocessing import Process, Queue
 
@@ -9,7 +8,6 @@ if len(sys.argv) != 2:
 
 ip_address = str(sys.argv[1])
 
-# Kick off multiprocessing
 def xProc(targetin, target, port):
 	jobs = []
 	proc = multiprocessing.Process(target=targetin, args=(target,port))
@@ -17,7 +15,6 @@ def xProc(targetin, target, port):
 	proc.start()
 	return
 
-# Kick off further enumeration.
 def http(ip_address, port):
 	print "[*] Launching HTTP scripts on " + ip_address
 	httpscript = "~/Scripts/http.py %s" % (ip_address)
@@ -84,26 +81,23 @@ def unicorn(ip_address):
 	udpserv_dict = {}
 	usout = open('/tmp/' + ip_address + '/unicorn','w')
 
-	#tcp scan  -p1-65535 
 	tcptest = "unicornscan -mT -r500 -p1-65535 -I %s" % ip_address
 	calltcpscan = subprocess.Popen(tcptest, stdout=subprocess.PIPE, shell=True)
 	calltcpscan.wait()
-	#udp scan  -p1-65535 
+
 	udptest = "unicornscan -mU -r500 -p1-65535 -I %s" % ip_address
 	calludpscan = subprocess.Popen(udptest, stdout=subprocess.PIPE, shell=True)
 	calludpscan.wait()
 
-# populate tcp service names & ports
 	tcpservice = []
 	tcpports = []
 	for lines in calltcpscan.stdout:
 		if re.search('\[([\s0-9{1,5}]+)\]',lines):
-			linez = re.split('\s', lines)
+			linez = re.split('[\[\]\s]', lines)
 			cleansrv = filter(None, linez)
-			services = [cleansrv.strip('[') for cleansrv in cleansrv][2]
+			services = [cleansrv.strip() for cleansrv in cleansrv][2]
 			cleanprt = filter(None, linez)
-			ports = [cleanprt.strip(']') for cleanprt in cleanprt][3]
-			#print services + ":" + ports
+			ports = [cleanprt.strip() for cleanprt in cleanprt][3]
 			tcpservice.append(services)
 			tcpports.append(ports)
 
@@ -111,17 +105,15 @@ def unicorn(ip_address):
 	tcpport_dict = tcpports
 	usout.write(str(tcpserv_dict) + ":" + str(tcpport_dict) + '\n')
 
-# populate udp service names & ports
 	udpservice = []
 	udpports = []
 	for lines in calludpscan.stdout:
 		if re.search('\[([\s0-9{1,5}]+)\]',lines):
-			linez = re.split('\s', lines)
+			linez = re.split('[\[\]\s]', lines)
 			cleansrv = filter(None, linez)
-			services = [cleansrv.strip('[') for cleansrv in cleansrv][2]
+			services = [cleansrv.strip() for cleansrv in cleansrv][2]
 			cleanprt = filter(None, linez)
-			ports = [cleanprt.strip(']') for cleanprt in cleanprt][3]
-			#print services + ":" + ports
+			ports = [cleanprt.strip() for cleanprt in cleanprt][3]
 			udpservice.append(services)
 			udpports.append(ports)
 
@@ -131,15 +123,12 @@ def unicorn(ip_address):
 	usout.close()
 	intrusive(ip_address)
 
-# Kick off standalone python scripts to further enumerate each service
 	for service, port in zip(tcpserv_dict,tcpport_dict): 
 		if (service == "http") and (port == "80"):
 			print "[!] Detected HTTP on " + ip_address + ":" + port + " (TCP)"
-			xProc(http, ip_address, None)	
-		elif (service == "https") and (port == "443") and (port == "80"):
-			#Noticing severe degradation from 80/443 scripts running simultaneously (connection issues).
-			print "[!] Detected SSL and HTTP on " + ip_address + ":" + port + " (TCP)-- [!] Waiting 7 minutes for HTTP interrogations to end, before launching scripts"
-			time.sleep(420)
+			xProc(http, ip_address, None)
+		elif (service == "https") and (port == "443"):			
+			print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
 			xProc(https, ip_address, None)
 		elif (service == "https") and (port == "443"):
 			print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
@@ -155,7 +144,7 @@ def unicorn(ip_address):
 			xProc(samba, ip_address, None)
 		elif (service == "ms-sql") and (port == "1433"):
 			print "[!] Detected MS-SQL on " + ip_address + ":" + port + " (TCP)"
-			xProc(mssql, ip_address, None)	
+			xProc(mssql, ip_address, None)
 		elif (service == "mysql") and (port == "3306"):
 			print "[!] Detected MYSQL on " + ip_address + ":" + port + " (TCP)"
 			xProc(mysql, ip_address, None)
@@ -163,20 +152,16 @@ def unicorn(ip_address):
 		if (service == "snmp") and (port == "161"):
 			print "[!] Detected snmp on " + ip_address + ":" + port + " (UDP)"
 			xProc(snmp, ip_address, None)
-		elif (service == "netbios") and (port == "137") or (port == "138"):
-			print "[!] Netbios detected on UDP. If nmap states the tcp port is vulnerable, run '-pT:445,U:137' to eliminate false positive"
-		else:
-			print "[*] Nmap intrusive scan output should be thoroughly reviewed at /tmp/" + ip_address
 
-print "############################################################"
-print "####                                                    ####"
-print "####                 Dark Enumeration                   ####"
-print "####                      by: Ohm                       ####"
-print "############################################################"
+print "##############################################################"
+print "####		       Dark Enumeration  		  ####"
+print "####   HTTP, SSL, SSH, SMTP, SAMBA, MS-SQL, MYSQL, SNMP   ####"
+print "####			  by: Ohm			  ####"
+print "##############################################################"
  
 if __name__=='__main__':
 	path = os.path.join("/tmp", ip_address.strip())
-	try:		
+	try:
 		os.mkdir(path)
 	except:
 		pass
