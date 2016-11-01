@@ -27,26 +27,26 @@ def gobuster(url):
 			for line in callcgiscan.stdout:
 				print line.strip()
 			print '\n'
-			wfuzz(url)
+	wfuzz(url)
 	
 def wfuzz(url):
 	if ("big" in wfuzzlist[0]):
 		print "[!] Starting wfuzz big scan for " + url
 		wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[0]) + " " + url + "/FUZZ"
-		callbigscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
-		callbigscan.wait()
-		for line in callbigscan.stdout:
+		callwfuzzbigscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
+		callwfuzzbigscan.wait()
+		for line in callwfuzzbigscan.stdout:
 			print line.strip()
 		print '\n'
 		if ("cgis" in wfuzzlist[1]):
 			print "[!] Starting wfuzz cgi scan for " + url
 			wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[1]) + " " + url + "/FUZZ"
-			callcgiscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
-			callcgiscan.wait()
-			for line in callcgiscan.stdout:
+			callwfuzzcgiscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
+			callwfuzzcgiscan.wait()
+			for line in callwfuzzcgiscan.stdout:
 				print line.strip()
 			print '\n'
-			nse(url)
+	nse(url)
 
 def nse(url):
 	fileuploader = "nmap -p80 --script http-fileupload-exploiter.nse " + ip_address
