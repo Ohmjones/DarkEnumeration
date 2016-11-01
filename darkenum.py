@@ -124,15 +124,18 @@ def unicorn(ip_address):
 	intrusive(ip_address)
 
 	for service, port in zip(tcpserv_dict,tcpport_dict): 
-		if (service == "http") and (port == "80"):
-			print "[!] Detected HTTP on " + ip_address + ":" + port + " (TCP)"
-			xProc(http, ip_address, None)
-		elif (service == "https") and (port == "443"):			
-			print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
-			xProc(https, ip_address, None)
-		elif (service == "https") and (port == "443"):
-			print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
-			xProc(https, ip_address, None)
+		if ((service == "http") and (port == "80")) or ((service == "https") and (port == "443")):
+			print "[!] Detected HTTP/SSL on " + ip_address + " taking the slow route to executing both http/ssl scripts..."
+			if ((service == "http") and (port == "80")) or ((service == "https") and (port == "443")):
+				xProc(http, ip_address, None)
+				time.sleep(900) # give http 15 minutes to complete
+				xProc(https, ip_address, None)
+			elif (service == "http") and (port == "80"):
+				xProc(http, ip_address, None)
+			elif (service == "https") and (port == "443"):
+				xProc(https, ip_address, None)
+			else:
+				pass
 		elif (service == "ssh") and (port == "22"):
 			print "[!] Detected SSH on " + ip_address + ":" + port + " (TCP)"
 			xProc(ssh, ip_address, None)
