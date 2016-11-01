@@ -18,7 +18,7 @@ def gobuster(url):
 		callbigscan.wait()
 		for line in callbigscan.stdout:
 			print line.strip()
-		time.sleep(120)
+		print '\n'
 		if ("cgis" in wordlists[1]):
 			print "[!] Starting gobuster cgi scan for " + url
 			gobuster = "gobuster -u " + url + " -w " +  str(wordlists[1]) + " -s '200,204,301,302,307,400,403'"
@@ -26,26 +26,27 @@ def gobuster(url):
 			callcgiscan.wait()
 			for line in callcgiscan.stdout:
 				print line.strip()
-			wfuzz(url)
+			print '\n'
+	wfuzz(url)
 	
 def wfuzz(url):
 	if ("big" in wfuzzlist[0]):
-		time.sleep(180)
 		print "[!] Starting wfuzz big scan for " + url
 		wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[0]) + " " + url + "/FUZZ"
-		callbigscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
-		callbigscan.wait()
-		for line in callbigscan.stdout:
+		callwfuzzbigscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
+		callwfuzzbigscan.wait()
+		for line in callwfuzzbigscan.stdout:
 			print line.strip()
-		time.sleep(120)
+		print '\n'
 		if ("cgis" in wfuzzlist[1]):
 			print "[!] Starting wfuzz cgi scan for " + url
 			wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[1]) + " " + url + "/FUZZ"
-			callcgiscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
-			callcgiscan.wait()
-			for line in callcgiscan.stdout:
+			callwfuzzcgiscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
+			callwfuzzcgiscan.wait()
+			for line in callwfuzzcgiscan.stdout:
 				print line.strip()
-			nse(url)
+			print '\n'
+	nse(url)
 
 def nse(url):
 	fileuploader = "nmap -p443 --script http-fileupload-exploiter.nse " + ip_address
