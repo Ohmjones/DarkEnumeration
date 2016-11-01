@@ -18,7 +18,6 @@ def gobuster(url):
 		callbigscan.wait()
 		for line in callbigscan.stdout:
 			print line.strip()
-		time.sleep(120)
 		print '\n'
 		if ("cgis" in wordlists[1]):
 			print "[!] Starting gobuster cgi scan for " + url
@@ -32,7 +31,6 @@ def gobuster(url):
 	
 def wfuzz(url):
 	if ("big" in wfuzzlist[0]):
-		time.sleep(180)
 		print "[!] Starting wfuzz big scan for " + url
 		wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[0]) + " " + url + "/FUZZ"
 		callbigscan = subprocess.Popen(wfuzz, stdout=subprocess.PIPE, shell=True)
@@ -40,7 +38,6 @@ def wfuzz(url):
 		for line in callbigscan.stdout:
 			print line.strip()
 		print '\n'
-		time.sleep(120)
 		if ("cgis" in wfuzzlist[1]):
 			print "[!] Starting wfuzz cgi scan for " + url
 			wfuzz = "wfuzz --hc 404,403,400 -c -z file," + str(wfuzzlist[1]) + " " + url + "/FUZZ"
