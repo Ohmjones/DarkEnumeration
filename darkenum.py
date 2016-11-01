@@ -21,7 +21,7 @@ def http(ip_address, port):
 	os.system("gnome-terminal -e 'bash -c \"" + httpscript + "\";bash'")
 	return
 
-def https(ip_address, port):
+def ssl(ip_address, port):
 	print "[*] Launching SSL scripts on " + ip_address
 	httpsscript = "~/Scripts/https.py %s" % (ip_address)
 	os.system("gnome-terminal -e 'bash -c \"" + httpsscript + "\";bash'")	
@@ -60,6 +60,18 @@ def smtp(ip_address, port):
 def samba(ip_address, port):
 	print "[*] Launching SAMBA scripts on " + ip_address
 	sambascript = "~/Scripts/samba.py %s" % (ip_address)
+	os.system("gnome-terminal -e 'bash -c \"" + sambascript + "\"'")
+	return
+
+def nfs(ip_address, port):
+	print "[*] Launching basic NFS tests on " + ip_address
+	nfscript = "~/Scripts/nfs.py %s %s" % (ip_address, port)
+	os.system("gnome-terminal -e 'bash -c \"" + sambascript + "\"'")
+	return
+
+def rpc(ip_address, port):
+	print "[*] Launching basic RPC tests on " + ip_address
+	rpccripts = "~/Scripts/rpc.py %s %s" % (ip_address, port)
 	os.system("gnome-terminal -e 'bash -c \"" + sambascript + "\"'")
 	return
 
@@ -129,13 +141,13 @@ def unicorn(ip_address):
 			if ((service == "http") and (port == "80")) or ((service == "https") and (port == "443")):
 				xProc(http, ip_address, None)
 				time.sleep(900) # give http 15 minutes to complete
-				xProc(https, ip_address, None)
+				xProc(ssl, ip_address, None)
 			elif (service == "http") and (port == "80"):				
 				print "[!] Detected HTTP on " + ip_address + ":" + port + " (TCP)"
 				xProc(http, ip_address, None)
 			elif (service == "https") and (port == "443"):
 				print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
-				xProc(https, ip_address, None)
+				xProc(ssl, ip_address, None)
 			else:
 				pass
 		elif (service == "ssh") and (port == "22"):
