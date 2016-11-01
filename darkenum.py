@@ -130,9 +130,11 @@ def unicorn(ip_address):
 				xProc(http, ip_address, None)
 				time.sleep(900) # give http 15 minutes to complete
 				xProc(https, ip_address, None)
-			elif (service == "http") and (port == "80"):
+			elif (service == "http") and (port == "80"):				
+				print "[!] Detected HTTP on " + ip_address + ":" + port + " (TCP)"
 				xProc(http, ip_address, None)
 			elif (service == "https") and (port == "443"):
+				print "[!] Detected SSL on " + ip_address + ":" + port + " (TCP)"
 				xProc(https, ip_address, None)
 			else:
 				pass
