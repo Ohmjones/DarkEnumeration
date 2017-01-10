@@ -3,7 +3,7 @@ import subprocess, multiprocessing, os, time, re, sys
 from multiprocessing import Process, Queue
 
 if len(sys.argv) != 2:
-    print "Usage: ./http.py <targetip>"
+    print "Usage: ./darkenum.py <targetip>"
     sys.exit(0)
 
 ip_address = str(sys.argv[1])
