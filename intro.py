@@ -7,7 +7,7 @@ def intro():
 	  /-;'               `._ 
 	 /\/          ._   _,'o \ 
 	( /\       _,--'\,','"`. ) 
-	 |\      ,'o     \'    //\                   [!] Dark Enumeration's Script Collection
+	 |\      ,'o     \'    //\                   Dark Enumeration's Script Collection
 	 |      \        /   ,--'""`-.                     A HTTP, SSL, SSH, FTP, SMTP, SMB & SQL port scanner
 	 :       \_    _/ ,-'         `-._                  
 	  \        `--'  /                )                                   By: Ohm
