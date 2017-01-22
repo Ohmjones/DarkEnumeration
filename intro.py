@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+'''
+Homer Simpson is clearly a trademark/copyrighted entity from 'The Simpsons'. I don't wanna get any shit for using his drool face.
+'''
+
 def intro():
 	print("""	    
 	      _ _,---._ 
