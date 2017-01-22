@@ -2,7 +2,7 @@ DarkEnumeration
 <br>
 Automated enumeration
 <br>
-This set of scripts were written in the hopes to alleviate manual enumeration processes. 
+This set of scripts were written in the hopes of alleviating manual enumeration processes. 
 The logic of the script is as follows:
   1. Do not actually exploit or automatically obtain footholds to a system.
   2. Test all 65,535 ports utilizing Unicornscan (currently doesn't support threading, waiting for Unicornscan to follow nmap's footsteps in that regard)
