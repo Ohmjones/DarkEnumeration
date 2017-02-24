@@ -5,7 +5,6 @@ Homer Simpson is clearly a trademark/copyrighted entity from 'The Simpsons'. I d
 In fact...
 	 The Simpsons TM & © 2017 Twentieth Century Fox Film Corporation. All rights reserved. 
 '''
-
 def intro():
 	print("""	    
 	      _ _,---._ 
@@ -13,10 +12,10 @@ def intro():
 	  /-;'               `._ 
 	 /\/          ._   _,'o \ 
 	( /\       _,--'\,','"`. ) 
-	 |\      ,'o     \'    //\                   Dark Enumeration's Script Collection
-	 |      \        /   ,--'""`-.                     A HTTP, SSL, SSH, FTP, SMTP, SMB & SQL port scanner
-	 :       \_    _/ ,-'         `-._                  
-	  \        `--'  /                )                                   By: Ohm
+	 |\      ,'o     \'     //\          
+	 |      \        /   ,--'""`-.                    
+	 :       \_    _/ ,-'         `-._                    
+	  \        `--'  /                )                       
 	   `.  \`._    ,'     ________,','
 	     .--`     ,'  ,--` __\___,;'    
 	     \`.,-- ,' ,`_)--'   /`.,' 
@@ -28,8 +27,10 @@ def intro():
 	         _|  /    ,',   ,--' 
 	        ,'|_(    /-<._,' |--, 
 	        |    `--'---.     \/ \ 
-	        |          / \    /\  \ 
-	      ,-^---._     |  \  /  \  \ 
+	        |    * *   / \    /\  \ 
+	      ,-^---._*    |  \  /  \  \ 
 	    ,-'       \----'   \/    \--`. 
 	   /           \              \   \ 
+		     *
+[*][*][*][*][*] OSCP Enumeration Script [*][*][*][*][*]
 	""")
