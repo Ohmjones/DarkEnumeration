@@ -9,11 +9,11 @@ For those who code:
   
 For those who don't:
   These set of scripts are meant to be run in any order, however - on a 'blackbox' target it should be something like this.
-    ./darkenum.py target
-    review results
-    ./webmap.py http://target:10000 
-    review results
-    ./smbfun.py target
-    review results
-    so forth...
-    so on...
+    ./darkenum.py target<br>
+    review results<br>
+    ./webmap.py http://target:10000 <br>
+    review results<br>
+    ./smbfun.py target<br>
+    review results<br>
+    so forth...<br>
+    so on...<br>
