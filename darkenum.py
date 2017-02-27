@@ -12,7 +12,7 @@ ip_address = str(sys.argv[1])
 
 def intrusive(ip_address):
 	print "\t[!] Running Service Version, Default Scripts, Operating System Detection and Traceroute NMAP scans against target."
-	params = ' --open -A --script "(default or safe or intrusive) and not *brute or *dropbox*" %s -oA /tmp/%s/intrusivescan' % (ip_address, ip_address)
+	params = ' --open -A %s -oA /tmp/%s/intrusivescan' % (ip_address, ip_address)
 
 	if tcp_dict and udp_dict:
 		cmd = "nmap -Pn -sS -pT:" + ",".join(map(str, tports)) + ",U:" + ",".join(map(str, uports)) + params + "\n"
