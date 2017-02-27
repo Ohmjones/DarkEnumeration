@@ -19,7 +19,7 @@ def intrusive(ip_address):
 		print "Running Nmap syntax: " + cmd
 
 	elif tcp_dict and not udp_dict:
-		cmd = "nmap -Pn -sST -pT:" + ",".join(map(str, tports)) + params + "\n"
+		cmd = "nmap -Pn -sS -pT:" + ",".join(map(str, tports)) + params + "\n"
 		print "Running Nmap syntax: " + cmd
 
 	elif udp_dict and not tcp_dict:
