@@ -18,7 +18,7 @@ bflist=['/usr/share/wordlists/SecLists/Discovery/Web_Content/common.txt','/usr/s
 
 def gob(url):
     print "\n[!] Running gobuster on target."
-    params = " -e -f -s '307,200,204,301,302,403' -t 15 -u " + url + " >> /tmp/%s/gobuster.txt" % (ip)
+    params = " -e -f -s '307,200,204,301,302' -t 15 -u " + url + " >> /tmp/%s/gobuster.txt" % (ip)
     for i in bflist:
             dirbf = "gobuster -w " + i + params
             print "Syntax: " + dirbf
