@@ -6,13 +6,13 @@ if len(sys.argv) != 2:
     print "              OR                  "
     print "\t[!]Usage: ./webmap.py http://url:10000"
     exit(0)
-
-url = sys.argv[1]
-i = url.split("/")[2]
-if ":" in i:
-    ip = i.split(':')[0]
-else:
-    ip = i
+elif len(sys.argv) == 2:
+     url = sys.argv[1]
+     if ":" in url:
+         i = url.split("/")[2]
+         ip = i.split(':')[0]
+     else:
+         ip = i
 
 bflist=['/usr/share/wordlists/SecLists/Discovery/Web_Content/common.txt','/usr/share/wordlists/SecLists/Discovery/Web_Content/big.txt', '/usr/share/wordlists/SecLists/Discovery/Web_Content/Logins.fuzz.txt']
 
