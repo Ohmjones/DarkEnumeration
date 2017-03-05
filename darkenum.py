@@ -15,7 +15,7 @@ def intrusive(ip_address):
 	params = ' --open -A %s -oA /tmp/%s/intrusivescan' % (ip_address, ip_address)
 
 	if tcp_dict and udp_dict:
-		cmd = "nmap -Pn -sS -pT:" + ",".join(map(str, tports)) + ",U:" + ",".join(map(str, uports)) + params + "\n"
+		cmd = "nmap -Pn -sS -sU -pT:" + ",".join(map(str, tports)) + ",U:" + ",".join(map(str, uports)) + params + "\n"
 		print "Running Nmap syntax: " + cmd
 
 	elif tcp_dict and not udp_dict:
