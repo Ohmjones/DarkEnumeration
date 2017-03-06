@@ -14,7 +14,7 @@ elif len(sys.argv) == 2:
      else:
          ip = i
 
-bflist=['/usr/share/wordlists/SecLists/Discovery/Web_Content/common.txt','/usr/share/wordlists/SecLists/Discovery/Web_Content/big.txt', '/usr/share/wordlists/SecLists/Discovery/Web_Content/Logins.fuzz.txt']
+bflist=['/usr/share/wordlists/SecLists/Discovery/Web_Content/big.txt', '/usr/share/wordlists/SecLists/Discovery/Web_Content/Logins.fuzz.txt']
 
 def gob(url):
     print "\n[!] Running gobuster on target."
