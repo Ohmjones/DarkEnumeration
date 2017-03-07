@@ -15,7 +15,7 @@ def intrusive(ip_address):
 	params = ' --open -A %s -oA /tmp/%s/intrusivescan' % (ip_address, ip_address)
 
 	if tcp_dict and udp_dict:
-		cmd = "nmap -Pn -sS -sU -pT:" + ",".join(map(str, tports)) + ",U:" + ",".join(map(str, uports)) + params + "\n"
+		cmd = "nmap -Pn -sS -pT:" + ",".join(map(str, tports)) + ",U:" + ",".join(map(str, uports)) + params + "\n"
 		print "Running Nmap syntax: " + cmd
 
 	elif tcp_dict and not udp_dict:
@@ -26,8 +26,7 @@ def intrusive(ip_address):
 		cmd = "nmap -Pn -sU -pU:" + ",".join(map(str, uports)) + params + "\n"
 		print "Running Nmap syntax: " + cmd
 
-	os.system("gnome-terminal -e 'bash -c \"" + cmd + "\"'")	
-#	tcpservice_interrogation()
+        os.system("gnome-terminal -e 'bash -c \"" + cmd + "\"'")	
 
 def uscan(ip_address):
 	ip_address = ip_address.strip()
