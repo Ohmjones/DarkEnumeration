@@ -36,7 +36,7 @@ def nikto(url):
     nks = os.system(nk)
 
 def review():
-    print "\n\t[*] Opening tangible resources..."
+    print "\n\t[*] Opening tangible resourcesi in the default web browser..."
     hits = []
     inf = "/tmp/%s/gobuster.txt" % (ip)
     f = open(inf,'r')
@@ -53,7 +53,7 @@ def review():
 
     for url in hits:
         str(url)
-        webbrowser.open(url,new=0)
+        webbrowser.open(url, new=1, autoraise=False)
         time.sleep(1)
 
     nikto(url)
