@@ -2,13 +2,12 @@
 import os, sys, subprocess
 
 if len(sys.argv) != 2:
-    print "\t[*]Usage: ./webmap.py https://url"
-    print "              OR                  "
-    print "\t[!]Usage: ./webmap.py http://url:10000"
+    print "\t[*]Usage: ./webmap.py protocol://hostname[:port]/[path/]"
     exit(0)
+
 elif len(sys.argv) == 2:
      url = sys.argv[1]
-     if ":" in url:
+     if (":" and "/") in url:
          i = url.split("/")[2]
          ip = i.split(':')[0]
      else:
@@ -18,19 +17,24 @@ bflist=['/usr/share/wordlists/SecLists/Discovery/Web_Content/big.txt', '/usr/sha
 
 def gob(url):
     print "\n[!] Running gobuster on target."
-    params = " -e -f -s '307,200,204,301,302' -t 15 -u " + url + " >> /tmp/%s/gobuster.txt" % (ip)
+    params = " -e -f -s '307,200,204,301,302' -t 20 -u " + url + " >> /tmp/%s/gobuster.txt" % (ip)
     for i in bflist:
             dirbf = "gobuster -w " + i + params
             print "Syntax: " + dirbf
-            scan = os.system(dirbf)
+            os.system(dirbf)
 
     nikto(url)
 
 def nikto(url):
     print "\n[!] Running nikto on target."
-    nk = "nikto -h " + url + " | tee /tmp/%s/nikto.txt" % (ip)
+    port2 = ip[1]
+    if port2:
+        nk = "nikto -h " + url + " -evasion 1 -port " + port2 + " --no404 -o -Format txt tmp/%s/nikto" % (ip)
+    else:
+        nk = "nikto -h " + url + " -evasion 1 --no404 -o -Format txt tmp/%s/nikto" % (ip) 
     print "Syntax: " + nk
     nks = os.system(nk)
+
 
 if __name__=='__main__':
     path = os.path.join("/tmp", ip.strip())
