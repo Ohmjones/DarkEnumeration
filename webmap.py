@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import os, sys, subprocess
+import os, sys, time, subprocess, re, webbrowser
 
 if len(sys.argv) != 2:
     print "[*]Usage: ./webmap.py protocol://hostname[:port]/[path/]"
@@ -23,8 +23,8 @@ def gob(url):
             print "Syntax: " + dirbf
             os.system(dirbf)
 
-    nikto(url)
-
+    review()
+    
 def nikto(url):
     print "\n\t[!] Running nikto on target."
     port2 = ip[1]
@@ -35,6 +35,28 @@ def nikto(url):
     print "Syntax: " + nk
     nks = os.system(nk)
 
+def review():
+    print "\n\t[*] Opening tangible resources..."
+    hits = []
+    inf = "/tmp/%s/gobuster.txt" % (ip)
+    f = open(inf,'r')
+    for l in f:
+        if re.search('http.',l):
+            if "[+]" in l:
+                pass
+            else:
+                x = l.split(' ')[0]
+                hits.append(x)
+    for i in hits:
+        if i in hits:
+            hits.remove(i)
+
+    for url in hits:
+        str(url)
+        webbrowser.open(url,new=0)
+        time.sleep(1)
+
+    nikto(url)
 
 if __name__=='__main__':
     path = os.path.join("/tmp", ip.strip())
@@ -46,4 +68,5 @@ if __name__=='__main__':
             print "\t[!] Directory " + path + " exists."
             pass
 
-    gob(url)
+    #gob(url)
+    review()
