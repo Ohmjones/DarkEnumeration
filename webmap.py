@@ -68,5 +68,5 @@ if __name__=='__main__':
             print "\t[!] Directory " + path + " exists."
             pass
 
-    #gob(url)
-    review()
+    gob(url)
+ #   review()
