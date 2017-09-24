@@ -31,7 +31,7 @@ def nikto(url):
     if port2:
         nk = "nikto -h " + url + " -evasion 1 -port " + port2 + " -Tuning x 8 --no404 | tee /tmp/%s/nikto" % (ip)
     else:
-        nk = "nikto -h " + url + " -evasion 1 -Tuning x 8 --no404 | tee /tmp/%s/nikto" % (ip) 
+        nk = "nikto -h " + url + " -evasion 1 -Tuning x 6 --no404 | tee /tmp/%s/nikto" % (ip) 
     print "Syntax: " + nk
     nks = os.system(nk)
 
